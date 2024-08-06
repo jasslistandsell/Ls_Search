@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jtlshopplugin>
+    <Name>LS Search</Name>
+    <Description>Custom Search</Description>
+    <Author>List and sell</Author>
+    <URL>https://listandsell.de</URL> 
+    <XMLVersion>100</XMLVersion>
+    <ShopVersion>5.2.2</ShopVersion>
+    <Icon>preview.png</Icon>
+    <PluginID>ls_search</PluginID>
+    <CreateDate>2023-06-07</CreateDate>
+    <Version>1.0.0</Version>
+    <Install>
+        <FrontendLink>
+            <Link>
+                <Filename>dropsearch-results.php</Filename>
+                <Name>Results</Name>
+                <Template>dropsearch-results.tpl</Template>
+                <Identifier>dp-search</Identifier>
+                <VisibleAfterLogin>N</VisibleAfterLogin>
+                <PrintButton>N</PrintButton>
+                <SSL>2</SSL>
+                <LinkLanguage iso="GER">
+                    <Seo>search-results</Seo>
+                    <Name>Search Results</Name>
+                    <Title>Search Results</Title>
+                    <MetaTitle>Search results</MetaTitle>
+                    <MetaKeywords>Search results</MetaKeywords>
+                    <MetaDescription>Search results</MetaDescription>
+                </LinkLanguage>
+            </Link>
+        </FrontendLink>
+        <CSS>
+            <file>
+                <name>lsslider.css</name>   
+                <priority>4</priority>
+            </file>
+        </CSS>
+        <JS>
+            <file>
+                <name>main.js</name> 
+                <priority>1</priority>
+                <position>body</position> 
+            </file>
+            <file>
+                <name>suggest.js</name> 
+                <priority>8</priority>
+                <position>body</position> 
+            </file>
+            <file>
+                <name>lsslider.js</name> 
+                <priority>8</priority>
+                <position>body</position> 
+            </file>
+        </JS>
+    </Install>
+</jtlshopplugin>  

@@ -1,0 +1,475 @@
+const slider = document.querySelector('.make-slider-parent .make-slider');
+const navSlider = document.querySelector('.ls-nav-slider .slider-body .nav-track');
+if(slider){
+    let mouseDown = false;
+    let startX, scrollLeft;
+    let startDragging = function (e) {
+        mouseDown = true;
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    };
+
+    let stopDragging = function (event) {
+        mouseDown = false;
+    };
+    
+    if(slider && slider.length > 0){
+
+        slider.addEventListener('mousemove', (e) => {
+            e.preventDefault();
+            if(!mouseDown) { return; }
+            const x = e.pageX - slider.offsetLeft;
+            const scroll = x - startX;
+            slider.scrollLeft = scrollLeft - scroll;
+        });
+    }
+
+    const sliderParent = document.querySelector('.make-slider-parent');
+
+
+    // daynamic dragging
+    let startDraggingD = function (e) { 
+        e.preventDefault();
+        //console.log('start dragging');
+        let cElem;
+        mouseDown = true;
+        if(hasClass(e.target, 'make-slider')){
+            cElem = e.target;
+        }else{
+            cElem = e.target.closest('.make-slider');
+            //console.log(e.pageX + ' ' +cElem.offsetLeft);
+        }
+
+        if(cElem){
+            
+            startX = e.pageX - cElem.offsetLeft;
+            scrollLeft = cElem.scrollLeft;
+        }
+
+        //console.log(cElem.offsetLeft);
+    };
+
+    let startMoving = function (e) {
+        let cElem;
+        e.preventDefault();
+        if(!mouseDown) { return; }
+        
+        if(hasClass(e.target, 'make-slider')){
+            cElem = e.target;
+        }else{
+            cElem = e.target.closest('.make-slider');
+            //console.log(e.pageX + ' ' +cElem.offsetLeft);
+        }
+        
+        if(cElem){
+            
+            //console.log(cElem.offsetLeft);
+            
+            const x = e.pageX - cElem.offsetLeft;
+            const scroll = x - startX;
+            console.log(scroll);
+            cElem.scrollLeft = scrollLeft - scroll;
+        }
+
+        //console.log('mouse moved');
+    };
+
+
+    if(document.getElementsByClassName("make-slider-parent").length > 0){
+        // console.log(document.getElementsByClassName("make-slider-parent").length);
+        var sliderP =  document.getElementsByClassName("make-slider-parent");
+        for (var i = 0; i < sliderP.length; i++) {
+            let elem =  sliderP.item(i).querySelector('.make-slider');
+        
+
+            elem.addEventListener('mousedown', startDraggingD, false);
+            elem.addEventListener('mousemove', startMoving, false);
+            elem.addEventListener('mouseup', stopDragging, false);
+            elem.addEventListener('mouseleave', stopDragging, false);
+        }
+    }
+
+
+    slider.addEventListener('mousedown', startDragging, false);
+    slider.addEventListener('mouseup', stopDragging, false);
+    slider.addEventListener('mouseleave', stopDragging, false);
+
+    function hasClass(element, className) {
+        return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
+    }
+
+    // Slider navigation
+
+}
+
+
+/**
+ * 
+ * NAV SLIDER
+ * 
+*/
+if(navSlider){
+    let mouseDown = false;
+    let startX, scrollLeft;
+    let startDragging = function (e) {
+        mouseDown = true;
+        startX = e.pageX - navSlider.offsetLeft;
+        scrollLeft = navSlider.scrollLeft;
+    };
+
+    let stopDragging = function (event) {
+        mouseDown = false;
+    };
+    
+    if(navSlider && navSlider.length > 0){
+
+        navSlider.addEventListener('mousemove', (e) => {
+            e.preventDefault();
+            if(!mouseDown) { return; }
+            const x = e.pageX - navSlider.offsetLeft;
+            const scroll = x - startX;
+            navSlider.scrollLeft = scrollLeft - scroll;
+        });
+    }
+
+    // daynamic dragging
+    let startDraggingD = function (e) { 
+        e.preventDefault();
+        //console.log('start dragging');
+        let cElem;
+        mouseDown = true;
+        if(hasClass(e.target, 'nav-track')){
+            cElem = e.target;
+        }else{
+            cElem = e.target.closest('.nav-track');
+            //console.log(e.pageX + ' ' +cElem.offsetLeft);
+        }
+
+        if(cElem){
+            
+            startX = e.pageX - cElem.offsetLeft;
+            scrollLeft = cElem.scrollLeft;
+        }
+
+        //console.log(cElem.offsetLeft);
+    };
+
+    let startMoving = function (e) {
+        let cElem;
+        e.preventDefault();
+        if(!mouseDown) { return; }
+
+        if(hasClass(e.target, 'nav-track')){
+            cElem = e.target;
+        }else{
+            cElem = e.target.closest('.nav-track');
+            //console.log(e.pageX + ' ' +cElem.offsetLeft);
+        }
+
+        if(cElem){
+
+            //console.log(cElem.offsetLeft);
+
+            const x = e.pageX - cElem.offsetLeft;
+            const scroll = x - startX;
+            cElem.scrollLeft = scrollLeft - scroll;
+        }
+
+        //console.log('mouse moved');
+    };
+
+
+    if(document.getElementsByClassName("ls-nav-slider").length > 0){
+        // console.log(document.getElementsByClassName("make-slider-parent").length);
+        var sliderP =  document.getElementsByClassName("ls-nav-slider");
+        for (var i = 0; i < sliderP.length; i++) {
+            let elem =  sliderP.item(i).querySelector('.nav-track');
+        
+
+            elem.addEventListener('mousedown', startDraggingD, false);
+            elem.addEventListener('mousemove', startMoving, false);
+            elem.addEventListener('mouseup', stopDragging, false);
+            elem.addEventListener('mouseleave', stopDragging, false);
+        }
+    }
+
+
+    navSlider.addEventListener('mousedown', startDragging, false);
+    navSlider.addEventListener('mouseup', stopDragging, false);
+    navSlider.addEventListener('mouseleave', stopDragging, false); 
+
+    function hasClass(element, className) {
+        return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1; 
+    } 
+}
+
+$(document).ready(function(){
+    /**
+     * 
+     * Make slider navigation
+     * 
+     */
+    if($(document).find('.make-slider').length > 0){
+        $(document).find('.make-slider').each(function(e) {
+            let elem = $(this);
+            let pElem = elem.closest('.make-slider-parent').length > 0 ? elem.closest('.make-slider-parent') : null;
+
+            if(pElem){
+                let minItemWidth = elem.attr('minelemwidth') ? parseInt(elem.attr('minelemwidth')) : 250;
+                // console.log(minItemWidth);
+                let pWidth = parseInt(pElem.width());
+                let boxWidth = (pWidth / 4);
+                let minWidth = minItemWidth; 
+                let elemCount =  pElem.find('.col-slider').length;
+                if(boxWidth < minWidth){
+                    boxWidth = minWidth;
+                }
+
+                if(elem.closest(".make-slider-parent").hasClass("small")){
+                    elem.find('.col-slider').css({width:'auto', minWidth:minWidth+'px'});
+                }else{
+                    elem.find('.col-slider').css({width:minWidth+'px', minWidth:minWidth+'px'});
+                }
+                // console.log(boxWidth); 
+                var count = 1;
+
+                elem.find('.col-slider').each(function(e){
+                    $(this).addClass('slide-'+count); 
+                    count++;
+                });
+            }
+        });
+    }
+    $(document).on('click', '.make-slider-parent .next', function(){
+        let elem = $(this);
+        let pElem = elem.closest('.make-slider-parent').length > 0 ? elem.closest('.make-slider-parent') : null;
+        //console.log('scroll left');
+        if(pElem){
+            let cSld = elem.attr('st');
+            let pWidth = parseInt(pElem.width());
+            let tWidth = parseInt(pElem.find('.make-slider').width());
+            let boxWidth = (pWidth / 4) - 10;
+            let minWidth = 300;
+            let elemCount =  pElem.find('.col-slider').length;
+            let elemWidth =  pElem.find('.col-slider').width();
+
+            if(boxWidth < minWidth){
+                boxWidth = minWidth;
+            }
+            let cScrollPos = pElem.find('.make-slider').scrollLeft();
+
+            let sWidth = elemCount*elemWidth - tWidth;
+
+            let newSld = cSld;
+            let scTo = parseInt(newSld)*minWidth; 
+            
+            if( scTo >= sWidth || cSld == elemCount){ 
+                cSld = 0;
+                newSld = 0;
+            }else{
+                cSld ++;
+            }
+
+            
+            if(scTo == 0){
+                pElem.find('.make-slider').animate({'scrollLeft': scTo}, 0);  
+            }else{
+                pElem.find('.make-slider').animate({'scrollLeft': scTo}, 500);  
+            }
+
+            // console.log('SP : '+cScrollPos + '| '+scTo+'  TW: '+tWidth + ' BW: '+boxWidth);
+
+            pElem.find('.next').attr('st', cSld);
+            pElem.find('.prev').attr('st', cSld); 
+            //elem.attr('st', cSld);
+            
+        }
+    });
+    $(document).on('click', '.make-slider-parent .prev', function(){
+        let elem = $(this);
+        let pElem = elem.closest('.make-slider-parent').length > 0 ? elem.closest('.make-slider-parent') : null;
+        //console.log('scroll left');
+        if(pElem){
+            let cSld = elem.attr('st');
+            let pWidth = parseInt(pElem.width());
+            let tWidth = parseInt(pElem.find('.make-slider').width());
+            let boxWidth = (pWidth / 4) - 10;
+            let minWidth = 300;
+            let elemCount =  pElem.find('.col-slider').length;
+            let elemWidth =  pElem.find('.col-slider').width();
+
+            if(boxWidth < minWidth){
+                boxWidth = minWidth;
+            }
+
+            let cScrollPos = pElem.find('.make-slider').scrollLeft();
+
+            let sWidth = elemCount*elemWidth - tWidth;
+
+            
+            // console.log(pElem.find('.make-slider').offsetWidth);
+            let newSld = cSld - 1;
+            
+            
+            if(cSld <= 1 && cScrollPos <= 0){
+                cSld = elemCount;
+                newSld = elemCount;
+            }else{
+                cSld --;
+            }
+
+            let scTo = parseInt(newSld)*minWidth; 
+
+            // console.log('SP : '+cScrollPos + '  TW: '+sWidth + ' BW: '+boxWidth + ' st '+scTo);
+            if(scTo > cScrollPos && cSld != elemCount){
+                scTo = cScrollPos - minWidth;
+
+            }
+
+            pElem.find('.make-slider').animate({'scrollLeft': scTo}, 500);  
+
+            if(scTo - minWidth <= 0){
+                cSld = 1;
+            }
+
+            pElem.find('.next').attr('st', cSld);
+            pElem.find('.prev').attr('st', cSld); 
+            //elem.attr('st', cSld);
+            
+        }
+    });
+
+    /**
+     * 
+     * TOGGLE Nav Slider
+     * 
+     */
+
+    toggleNavSliderBtns(); 
+
+    function toggleNavSliderBtns(){
+        if($(document).find('.ls-nav-slider').length > 0 ){
+            $(document).find('.ls-nav-slider .slider-body ul').each(function(e) { 
+                if($(this).hasScrollBar('horizontal', 5)){
+                    $(this).closest(".ls-nav-slider").removeClass("no-scroll"); 
+                    $(this).removeClass("no-scroll"); 
+                }else{
+                    $(this).closest(".ls-nav-slider").addClass("no-scroll"); 
+                    $(this).addClass("no-scroll"); 
+                }
+            });
+        }
+    }
+
+    $(document).on("click", ".ls-nav-slider .nextB, .ls-nav-slider .next", function(e){
+        let elem = $(this);
+        let slideELem = elem.closest(".ls-nav-slider, .ls-nav-slider .next").find(".slider-body > ul");
+        nextNavElem(slideELem);
+    });
+    $(document).on("click", ".ls-nav-slider .prevB", function(e){
+        let elem = $(this);
+        let slideELem = elem.closest(".ls-nav-slider").find(".slider-body > ul");
+        prevNavElem(slideELem);
+    });
+    // Scroll next
+    function nextNavElem(slideELem){ 
+        let ulElem = slideELem;
+        var gridLeft = 0,
+        gridRight = ulElem.outerWidth();
+        // console.log(gridRight);
+        let c = 1;
+        ulElem.find("li").each(function(){ 
+            var thisLeft = $(this).offset().left;
+            let eWidth = $(this).width();
+            // console.log(c);
+            // console.log(ulElem.scrollLeft() +thisLeft - gridRight );
+            // console.log("---------------------");
+            if(thisLeft - gridRight < eWidth){
+                let nS = thisLeft - ulElem.offset().left - gridRight + eWidth;
+                let nS2 = thisLeft - ulElem.offset().left - gridRight;
+                // console.log(ulElem.scrollLeft() + $(this).width());
+                let newOff = gridRight + nS; 
+                // console.log("click: "+ c+" : "+thisLeft + " | " +$(this).width() +" | "+ gridRight);
+                ulElem.animate({
+                    scrollLeft : ulElem.scrollLeft() + $(this).width()
+                })
+                c++;
+                return false;
+            }
+        });
+    }
+     // Scroll Prev
+     function prevNavElem(slideELem){  
+        let ulElem = slideELem;
+        var gridLeft = 0,
+        gridRight = ulElem.outerWidth();
+        let ulScrollLeft = ulElem.scrollLeft();
+        // console.log(gridRight);
+        let c = 1;
+        if(ulScrollLeft > 0){
+            let tempElem;
+            let tempNs = 0;
+            ulElem.find("li").each(function(){ 
+                var thisLeft= $(this).offset().left;
+                let eWidth = $(this).width();
+                let nS = thisLeft - ulElem.offset().left - gridRight;
+                // console.log(c + " | "+nS);
+                // console.log(c + " | "+ (gridRight + nS));
+
+                // console.log("----------- "+c+" -------------");
+                // console.log(Math.abs(nS) +" - "+ gridRight +" < "+ eWidth);
+
+                if( Math.abs(nS) - gridRight > 0 && Math.abs(nS) - gridRight < eWidth) {
+                    ulElem.animate({
+                        scrollLeft : ulElem.scrollLeft() - (Math.abs(nS) - gridRight)   
+                    })
+                    c++;
+                    return false; 
+                }
+            });
+        }
+    }
+
+    toggleShowMoreBtn(); 
+    $( window ).resize(function() {
+       //console.log("abc");
+       toggleShowMoreBtn(); 
+       toggleNavSliderBtns();
+
+       // if($(document).find('.make-slider').length > 0){
+       //     $(document).find('.make-slider').each(function(e) {
+       //         if($(this).hasScrollBar('horizontal', 5)){
+       //             $(this).closest(".make-slider-parent").removeClass("no-scroll");
+       //         }else{
+       //             $(this).closest(".make-slider-parent").addClass("no-scroll");
+       //         }
+       //     });
+       // }
+       
+       
+   });
+   function toggleShowMoreBtn(){
+        if($(document).find('.toggle-height').length > 0){
+            $(document).find('.toggle-height').each(function(e) {
+                let elem = $(this);
+                let maxHeight = elem.attr('maxheight') ? parseInt(elem.attr('maxheight')) : 0;
+
+                if(maxHeight > 0){
+                    // elem.find('.toggle-content').css({maxHeight:maxHeight+'px'});
+                    if($(elem).find('.toggle-height-child').length > 0){
+                        let realHeight = parseInt($(elem).find('.toggle-height-child').height());
+                        if(maxHeight < realHeight){
+                            elem.find('.toggle-btn-wrap').addClass('show');
+                            elem.find('.toggle-btn-wrap').removeClass('hide');
+                        }else{
+                            elem.find('.toggle-btn-wrap').addClass('hide');
+                            elem.find('.toggle-btn-wrap').removeClass('show');
+                        }
+                    }
+                }
+                
+            })
+        }
+    }
+})
+
